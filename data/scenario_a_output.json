@@ -1,0 +1,115 @@
+{
+  "scenario": "A",
+  "bom": "NMC 811 \u2014 75 kWh EV Battery Pack",
+  "supply_risk": {
+    "material_name": "cobalt",
+    "top_country": "Democratic Republic of Congo",
+    "top_country_pct": 73.0,
+    "hhi_score": 5535.2,
+    "feoc_flag": true,
+    "risk_level": "HIGH",
+    "export_control_events": [],
+    "reasoning": "The risk is HIGH due to extreme geographic concentration, with 73% of global production from a single country (DRC), confirmed by an HHI score of 5535.2. The material's classification as a Foreign Entity of Concern (FEOC) adds significant regulatory and compliance risks for supply chains subject to the US IRA.",
+    "source": "USGS MCS 2025"
+  },
+  "substitutions": [
+    {
+      "ranked_position": 1,
+      "original_material": "cobalt",
+      "substitute_name": "LFP (Lithium Iron Phosphate)",
+      "substitute_chemistry": "LiFePO4",
+      "property_delta": {
+        "energy_density_pct": -42,
+        "cycle_life_pct": 200,
+        "thermal_stability": "Better",
+        "cost_delta_pct": -40
+      },
+      "supply_risk_score": 10,
+      "co2_delta_pct": -60,
+      "qualification_note": "The primary tradeoff is a significant reduction in energy density for major gains in safety, cycle life, cost, and supply chain security.",
+      "source": "Energy Density: NREL Battery Performance Report 2023; Cycle Life: NREL Battery Performance Report 2023; Thermal Stability: Journal of Power Sources 2022; Supply Risk: LFP supply risk score LOW; Cost & CO2: Industry estimates based on raw material substitution (Fe/P for Co/Ni)."
+    },
+    {
+      "ranked_position": 2,
+      "original_material": "cobalt",
+      "substitute_name": "LNMO (Lithium Nickel Manganese Oxide)",
+      "substitute_chemistry": "LiNi0.5Mn1.5O4",
+      "property_delta": {
+        "energy_density_pct": -20,
+        "cycle_life_pct": -40,
+        "thermal_stability": "Better",
+        "cost_delta_pct": -25
+      },
+      "supply_risk_score": 30,
+      "co2_delta_pct": -50,
+      "qualification_note": "This cobalt-free cathode offers a compromise on energy density but requires advanced electrolytes to mitigate cycle life degradation at its high operating voltage.",
+      "source": "Energy Density: Journal of Materials Chemistry A 2023; Cycle Life, Cost, CO2, Supply Risk: Estimated based on elimination of cobalt and known material properties."
+    },
+    {
+      "ranked_position": 3,
+      "original_material": "cobalt",
+      "substitute_name": "Sodium-ion (NIB)",
+      "substitute_chemistry": "Na-ion Cathode",
+      "property_delta": {
+        "energy_density_pct": -49,
+        "cycle_life_pct": 150,
+        "thermal_stability": "Better",
+        "cost_delta_pct": -55
+      },
+      "supply_risk_score": 5,
+      "co2_delta_pct": -70,
+      "qualification_note": "This chemistry eliminates both lithium and cobalt for the lowest cost and supply risk, but its low energy density restricts its use to shorter-range EVs.",
+      "source": "Energy Density: CATL Technical Bulletin 2023; Cycle Life, Cost, CO2, Supply Risk: Estimated based on abundant raw materials (sodium, iron) and known performance trends."
+    }
+  ],
+  "qualification_roadmap": [
+    {
+      "step_name": "Cell-Level Performance & Safety Characterization",
+      "standard": "IEC 62660-1 / IEC 62660-2",
+      "duration_weeks": 12,
+      "cost_band_usd_low": 75000,
+      "cost_band_usd_high": 150000,
+      "description": "Establishes a baseline for the new LFP cells. Key activities include validating supplier datasheet claims (capacity, cycle life, rate capability) and characterizing performance across temperatures. This data is critical for developing new BMS state-of-charge (SOC) algorithms due to LFP's flat voltage curve and for initial thermal modeling to accommodate the new cell format and thermal properties."
+    },
+    {
+      "step_name": "UN 38.3 Transportation Certification",
+      "standard": "UN 38.3",
+      "duration_weeks": 6,
+      "cost_band_usd_low": 25000,
+      "cost_band_usd_high": 50000,
+      "description": "Certifies the initial prototype pack design (A-Sample) for safe transportation by air, sea, and land. This is a mandatory prerequisite for shipping packs to vehicle integration sites, test tracks, or other development facilities. The test sequence includes altitude, thermal, vibration, shock, and short circuit tests."
+    },
+    {
+      "step_name": "Pack-Level Design Validation (DV) - Safety & Abuse",
+      "standard": "UL 2580",
+      "duration_weeks": 16,
+      "cost_band_usd_low": 300000,
+      "cost_band_usd_high": 500000,
+      "description": "Conducts a full suite of destructive safety tests on the new LFP pack design (B-Sample). This is the most critical safety gateway, validating mechanical integrity and the response to electrical and thermal abuse. It will formally verify the improved thermal stability of LFP, ensuring no thermal runaway under worst-case scenarios like overcharge, short circuit, and fire exposure."
+    },
+    {
+      "step_name": "Pack-Level Durability & Reliability Validation (PV)",
+      "standard": "UL 2580 / Customer Life Cycle Profile",
+      "duration_weeks": 32,
+      "cost_band_usd_low": 350000,
+      "cost_band_usd_high": 700000,
+      "description": "Validates the long-term reliability of the production-intent pack design. This is the longest phase, involving extensive charge/discharge cycling to confirm the 200% cycle life improvement claim. It also includes environmental exposure (thermal shock, humidity) and lifetime vibration testing to ensure the pack withstands all expected operating conditions."
+    },
+    {
+      "step_name": "Vehicle Integration & Field Validation",
+      "standard": "ISO 26262 / Customer Vehicle Requirements",
+      "duration_weeks": 20,
+      "cost_band_usd_low": 150000,
+      "cost_band_usd_high": 300000,
+      "description": "Installs PV-level packs into a test vehicle fleet for real-world validation. This step is crucial for assessing the impact of the -42% energy density (i.e., higher pack mass) on vehicle range and dynamics. It also validates BMS performance, drivability, and charging behavior, particularly addressing LFP's known challenges with cold-weather charging and SOC accuracy."
+    },
+    {
+      "step_name": "Production Process Validation & EOL Correlation",
+      "standard": "IATF 16949 principles",
+      "duration_weeks": 8,
+      "cost_band_usd_low": 75000,
+      "cost_band_usd_high": 150000,
+      "description": "Validates that the manufacturing line and processes can consistently produce packs that meet all specifications. This involves building units on the final production line and correlating quick End-of-Line (EOL) test measurements (e.g., internal resistance, insulation) with the comprehensive data from DV/PV testing to ensure 100% quality control during mass production."
+    }
+  ]
+}
