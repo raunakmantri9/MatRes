@@ -1,0 +1,429 @@
+{
+  "bom_name": "NMC 811 \u2014 75 kWh EV Battery Pack",
+  "components": [
+    {
+      "component_name": "Cobalt sulfate (cathode active material)",
+      "material_name": "cobalt",
+      "quantity_kg": 6.2,
+      "supplier_country": "DRC",
+      "notes": "NMC 811 cathode: Ni0.8Co0.1Mn0.1O2. Cobalt ~10 wt% of cathode active mass. DRC = >70% world production."
+    },
+    {
+      "component_name": "Nickel sulfate (cathode active material)",
+      "material_name": "nickel",
+      "quantity_kg": 29.4,
+      "supplier_country": "Indonesia",
+      "notes": "Nickel ~80 wt% of NMC 811 cathode active mass. Indonesia dominant supplier since 2022."
+    },
+    {
+      "component_name": "Manganese sulfate (cathode active material)",
+      "material_name": "manganese",
+      "quantity_kg": 3.9,
+      "supplier_country": "South Africa",
+      "notes": "Manganese ~10 wt% of NMC 811 cathode active mass."
+    },
+    {
+      "component_name": "Lithium carbonate (cathode + electrolyte)",
+      "material_name": "lithium",
+      "quantity_kg": 7.1,
+      "supplier_country": "Chile",
+      "notes": "Lithium triangulo: Chile/Argentina/Bolivia ~60% world reserves. Chile SQM primary supplier."
+    },
+    {
+      "component_name": "Natural graphite anode",
+      "material_name": "graphite",
+      "quantity_kg": 38.5,
+      "supplier_country": "China",
+      "notes": "China >65% world graphite production. Dec 2023 export controls on graphite products."
+    },
+    {
+      "component_name": "LiPF6 electrolyte salt",
+      "material_name": "lithium hexafluorophosphate",
+      "quantity_kg": 4.8,
+      "supplier_country": "China",
+      "notes": "China dominates LiPF6 production. Solvents sourced globally."
+    },
+    {
+      "component_name": "Copper current collector (anode)",
+      "material_name": "copper",
+      "quantity_kg": 18.2,
+      "supplier_country": "Chile",
+      "notes": "Chile ~27% world copper mine production. Low concentration risk, HHI ~1000."
+    },
+    {
+      "component_name": "Aluminum current collector (cathode)",
+      "material_name": "aluminum",
+      "quantity_kg": 12.6,
+      "supplier_country": "Australia",
+      "notes": "Bauxite abundant globally. Low supply risk."
+    }
+  ],
+  "supply_risks": [
+    {
+      "material_name": "cobalt",
+      "top_country": "Democratic Republic of Congo",
+      "top_country_pct": 73.0,
+      "hhi_score": 5535.2,
+      "feoc_flag": true,
+      "risk_level": "HIGH",
+      "export_control_events": [],
+      "source": "USGS MCS 2025, p.52"
+    },
+    {
+      "material_name": "nickel",
+      "top_country": "Indonesia",
+      "top_country_pct": 55.0,
+      "hhi_score": 3576.0,
+      "feoc_flag": false,
+      "risk_level": "HIGH",
+      "export_control_events": [],
+      "source": "USGS MCS 2025, p.120"
+    },
+    {
+      "material_name": "manganese",
+      "top_country": "South Africa",
+      "top_country_pct": 33.0,
+      "hhi_score": 2056.0,
+      "feoc_flag": false,
+      "risk_level": "MEDIUM",
+      "export_control_events": [],
+      "source": "USGS MCS 2025, p.108"
+    },
+    {
+      "material_name": "lithium",
+      "top_country": "Australia",
+      "top_country_pct": 47.0,
+      "hhi_score": 3142.0,
+      "feoc_flag": false,
+      "risk_level": "HIGH",
+      "export_control_events": [],
+      "source": "USGS MCS 2025, p.104"
+    },
+    {
+      "material_name": "graphite",
+      "top_country": "China",
+      "top_country_pct": 77.0,
+      "hhi_score": 6058.0,
+      "feoc_flag": true,
+      "risk_level": "HIGH",
+      "export_control_events": [
+        "2023-12-01: China imposes export controls on graphite products (MOFCOM Announcement 2023-No.33)",
+        "2023-10-20: China announces pre-controls notice requiring export licenses for graphite",
+        "2023-12-01: China export controls on graphite products \u2014 licence required (MOFCOM 2023-No.33)"
+      ],
+      "source": "USGS MCS 2025, p.74"
+    },
+    {
+      "material_name": "lithium hexafluorophosphate",
+      "top_country": "Unknown",
+      "top_country_pct": 0.0,
+      "hhi_score": 0.0,
+      "feoc_flag": false,
+      "risk_level": "LOW",
+      "export_control_events": [],
+      "source": "USGS MCS 2025 \u2014 material not found"
+    },
+    {
+      "material_name": "copper",
+      "top_country": "Unknown",
+      "top_country_pct": 0.0,
+      "hhi_score": 0.0,
+      "feoc_flag": false,
+      "risk_level": "LOW",
+      "export_control_events": [],
+      "source": "USGS MCS 2025 \u2014 material not found"
+    },
+    {
+      "material_name": "aluminum",
+      "top_country": "Unknown",
+      "top_country_pct": 0.0,
+      "hhi_score": 0.0,
+      "feoc_flag": false,
+      "risk_level": "LOW",
+      "export_control_events": [],
+      "source": "USGS MCS 2025 \u2014 material not found"
+    }
+  ],
+  "failure_modes": [
+    {
+      "material_name": "cobalt",
+      "mode_description": "thermal runaway",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 5,
+      "severity": 5,
+      "nhtsa_recall_ids": [
+        "21V-561",
+        "21V-550",
+        "22V-117"
+      ],
+      "source": "NHTSA recall ID: 21V-561, 21V-550, 22V-117"
+    },
+    {
+      "material_name": "cobalt",
+      "mode_description": "cell defect / separator failure",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 2,
+      "severity": 4,
+      "nhtsa_recall_ids": [
+        "21V-650",
+        "14V-080"
+      ],
+      "source": "NHTSA recall ID: 21V-650, 14V-080"
+    },
+    {
+      "material_name": "cobalt",
+      "mode_description": "BMS / software fault",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 1,
+      "severity": 3,
+      "nhtsa_recall_ids": [
+        "22V-650"
+      ],
+      "source": "NHTSA recall ID: 22V-650"
+    },
+    {
+      "material_name": "nickel",
+      "mode_description": "thermal runaway",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 5,
+      "severity": 5,
+      "nhtsa_recall_ids": [
+        "21V-561",
+        "21V-550",
+        "22V-117"
+      ],
+      "source": "NHTSA recall ID: 21V-561, 21V-550, 22V-117"
+    },
+    {
+      "material_name": "nickel",
+      "mode_description": "cell defect / separator failure",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 2,
+      "severity": 4,
+      "nhtsa_recall_ids": [
+        "21V-650",
+        "14V-080"
+      ],
+      "source": "NHTSA recall ID: 21V-650, 14V-080"
+    },
+    {
+      "material_name": "nickel",
+      "mode_description": "BMS / software fault",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 1,
+      "severity": 3,
+      "nhtsa_recall_ids": [
+        "22V-650"
+      ],
+      "source": "NHTSA recall ID: 22V-650"
+    },
+    {
+      "material_name": "manganese",
+      "mode_description": "thermal runaway",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 5,
+      "severity": 5,
+      "nhtsa_recall_ids": [
+        "21V-561",
+        "21V-550",
+        "22V-117"
+      ],
+      "source": "NHTSA recall ID: 21V-561, 21V-550, 22V-117"
+    },
+    {
+      "material_name": "manganese",
+      "mode_description": "cell defect / separator failure",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 2,
+      "severity": 4,
+      "nhtsa_recall_ids": [
+        "21V-650",
+        "14V-080"
+      ],
+      "source": "NHTSA recall ID: 21V-650, 14V-080"
+    },
+    {
+      "material_name": "manganese",
+      "mode_description": "BMS / software fault",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 1,
+      "severity": 3,
+      "nhtsa_recall_ids": [
+        "22V-650"
+      ],
+      "source": "NHTSA recall ID: 22V-650"
+    },
+    {
+      "material_name": "lithium",
+      "mode_description": "thermal runaway",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 5,
+      "severity": 5,
+      "nhtsa_recall_ids": [
+        "21V-561",
+        "21V-550",
+        "22V-117"
+      ],
+      "source": "NHTSA recall ID: 21V-561, 21V-550, 22V-117"
+    },
+    {
+      "material_name": "lithium",
+      "mode_description": "cell defect / separator failure",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 2,
+      "severity": 4,
+      "nhtsa_recall_ids": [
+        "21V-650",
+        "14V-080"
+      ],
+      "source": "NHTSA recall ID: 21V-650, 14V-080"
+    },
+    {
+      "material_name": "lithium",
+      "mode_description": "BMS / software fault",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 1,
+      "severity": 3,
+      "nhtsa_recall_ids": [
+        "22V-650"
+      ],
+      "source": "NHTSA recall ID: 22V-650"
+    },
+    {
+      "material_name": "graphite",
+      "mode_description": "thermal runaway",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 5,
+      "severity": 5,
+      "nhtsa_recall_ids": [
+        "21V-561",
+        "21V-550",
+        "22V-117"
+      ],
+      "source": "NHTSA recall ID: 21V-561, 21V-550, 22V-117"
+    },
+    {
+      "material_name": "graphite",
+      "mode_description": "cell defect / separator failure",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 2,
+      "severity": 4,
+      "nhtsa_recall_ids": [
+        "21V-650",
+        "14V-080"
+      ],
+      "source": "NHTSA recall ID: 21V-650, 14V-080"
+    },
+    {
+      "material_name": "graphite",
+      "mode_description": "BMS / software fault",
+      "source_url": "https://www.nhtsa.gov/vehicle-safety/recalls",
+      "recall_count": 1,
+      "severity": 3,
+      "nhtsa_recall_ids": [
+        "22V-650"
+      ],
+      "source": "NHTSA recall ID: 22V-650"
+    }
+  ],
+  "substitutions": [
+    {
+      "original_material": "cobalt",
+      "substitute_name": "LFP",
+      "property_delta": {
+        "energy_density_pct": -41.8,
+        "cycle_life_pct": 200.0,
+        "thermal_stability": "Better",
+        "cost_delta_pct": -25.0,
+        "source": "NREL Battery Performance Report 2023; Journal of Power Sources 2022"
+      },
+      "supply_risk_score": 10.0,
+      "co2_delta_pct": -30.0,
+      "ranked_position": 1,
+      "source": "Materials Project mp-1661648"
+    },
+    {
+      "original_material": "cobalt",
+      "substitute_name": "LNMO",
+      "property_delta": {
+        "energy_density_pct": -20.0,
+        "cycle_life_pct": -40.0,
+        "thermal_stability": "Better",
+        "cost_delta_pct": -10.0,
+        "source": "Journal of Materials Chemistry A 2023"
+      },
+      "supply_risk_score": 25.0,
+      "co2_delta_pct": -15.0,
+      "ranked_position": 2,
+      "source": "Journal of Materials Chemistry A 2023"
+    },
+    {
+      "original_material": "cobalt",
+      "substitute_name": "sodium-ion",
+      "property_delta": {
+        "energy_density_pct": -49.1,
+        "cycle_life_pct": 150.0,
+        "thermal_stability": "Better",
+        "cost_delta_pct": -35.0,
+        "source": "CATL Technical Bulletin 2023; Nature Energy 2023"
+      },
+      "supply_risk_score": 5.0,
+      "co2_delta_pct": -40.0,
+      "ranked_position": 3,
+      "source": "CATL Technical Bulletin 2023; Nature Energy 2023"
+    }
+  ],
+  "qualification_roadmap": [
+    {
+      "step_name": "Cell-level characterisation",
+      "standard": "IEC 62660-1",
+      "duration_weeks": 10,
+      "cost_band_usd_low": 75000,
+      "cost_band_usd_high": 150000
+    },
+    {
+      "step_name": "Safety & abuse testing (cell)",
+      "standard": "UN 38.3",
+      "duration_weeks": 6,
+      "cost_band_usd_low": 25000,
+      "cost_band_usd_high": 50000
+    },
+    {
+      "step_name": "Module-level validation",
+      "standard": "IEC 62660-2",
+      "duration_weeks": 12,
+      "cost_band_usd_low": 150000,
+      "cost_band_usd_high": 300000
+    },
+    {
+      "step_name": "Pack-level safety validation",
+      "standard": "UL 2580",
+      "duration_weeks": 16,
+      "cost_band_usd_low": 300000,
+      "cost_band_usd_high": 600000
+    },
+    {
+      "step_name": "Vehicle integration & field trial",
+      "standard": "ISO 26262 / OEM spec",
+      "duration_weeks": 20,
+      "cost_band_usd_low": 200000,
+      "cost_band_usd_high": 400000
+    },
+    {
+      "step_name": "Regulatory certification",
+      "standard": "ECE R100 / FMVSS 305",
+      "duration_weeks": 8,
+      "cost_band_usd_low": 100000,
+      "cost_band_usd_high": 200000
+    },
+    {
+      "step_name": "Production process validation",
+      "standard": "IATF 16949",
+      "duration_weeks": 8,
+      "cost_band_usd_low": 75000,
+      "cost_band_usd_high": 150000
+    }
+  ],
+  "composite_score": null,
+  "elapsed_seconds": 0.2
+}
