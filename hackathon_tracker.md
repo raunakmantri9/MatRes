@@ -53,7 +53,7 @@ Key saved in `.env`
 
 ## DAY 1 — Fri May 23 (~5 hrs): Project Scaffold + Schemas + Data Start
 
-### Step 1.1 — Create folder structure (10 min)
+### Step 1.1 — Create folder structure (10 min) ✅ Already done
 ```bash
 cd "/Users/raunakmantri/Coding/Learning to Code/Ideas/MatRes"
 mkdir -p agents data schemas bom_fixtures mcp_servers ui deploy docs
@@ -64,7 +64,7 @@ touch agents/__init__.py schemas/__init__.py mcp_servers/__init__.py
 `.env` is at `/Users/raunakmantri/Coding/Learning to Code/Ideas/MatRes/.env`
 Confirm `GOOGLE_CLOUD_PROJECT` matches the GCP project ID (check console — may be `materials-resilience-agent` not `matres-hackathon`).
 
-### Step 1.3 — Create Pydantic schemas (45 min)
+### Step 1.3 — Create Pydantic schemas (45 min) ✅ Already done
 Create `/Users/raunakmantri/Coding/Learning to Code/Ideas/MatRes/schemas/models.py` with these models:
 - `Material` — name, cas_number, category (cathode/anode/magnet/electrolyte)
 - `SupplyConcentration` — material_name, top_country, top_country_pct, hhi_score, feoc_flag (bool), export_control_events (list of strings with dates)
@@ -76,7 +76,7 @@ Create `/Users/raunakmantri/Coding/Learning to Code/Ideas/MatRes/schemas/models.
 
 Create `schemas/validate.py` (in the same folder) — loads a BOM JSON file and validates it against models, prints any errors.
 
-### Step 1.4 — Create 3 BOM fixture files (30 min)
+### Step 1.4 — Create 3 BOM fixture files (30 min) 
 Create `bom_fixtures/nmc811.json` — NMC 811 cathode BOM:
 Key materials: cobalt (20% by weight, DRC), nickel (10%, Philippines/Indonesia), manganese (5%, South Africa), lithium (5%, Chile/Argentina), graphite anode (10%, China)
 
