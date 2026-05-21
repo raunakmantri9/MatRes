@@ -26,6 +26,44 @@ APP_NAME = "matres"
 MODEL = "gemini-2.5-pro"
 HIGH_RISK_THRESHOLD = 1500  # HHI >= this triggers full sub-agent pipeline
 
+# Default scorer weights — override via .env or Streamlit sidebar
+DEFAULT_W1 = float(os.getenv("SCORE_W1", 0.40))  # supply risk
+DEFAULT_W2 = float(os.getenv("SCORE_W2", 0.25))  # performance delta
+DEFAULT_W3 = float(os.getenv("SCORE_W3", 0.25))  # qualification cost
+DEFAULT_W4 = float(os.getenv("SCORE_W4", 0.10))  # CO2 delta
+
+
+def compute_composite_score(
+    sub: dict,
+    w1: float = DEFAULT_W1,
+    w2: float = DEFAULT_W2,
+    w3: float = DEFAULT_W3,
+    w4: float = DEFAULT_W4,
+) -> float:
+    """
+    Score a substitution candidate 0–100. Higher = better substitution.
+    w1: supply risk improvement (lower supply_risk_score = better)
+    w2: performance delta (energy density trade-off)
+    w3: qualification cost (lower cost = better)
+    w4: CO2 benefit (more negative co2_delta = better)
+    """
+    supply_score = (100 - sub.get("supply_risk_score", 50)) * w1
+
+    energy_delta = sub.get("property_delta", {}).get("energy_density_pct", 0)
+    perf_score = max(0, 100 + energy_delta) * w2  # −42% energy → 58/100
+
+    roadmap = sub.get("_roadmap_cost", None)
+    if roadmap:
+        total_cost = sum(s.get("cost_band_usd_low", 0) for s in roadmap)
+        cost_score = max(0, 100 - total_cost / 15_000) * w3
+    else:
+        cost_score = 50 * w3
+
+    co2_delta = sub.get("co2_delta_pct", 0)
+    co2_score = max(0, 100 + co2_delta) * w4  # −30% CO2 → 70/100
+
+    return round(supply_score + perf_score + cost_score + co2_score, 1)
+
 MATERIAL_CATEGORIES = {
     "cobalt": "cathode",
     "nickel": "cathode",
@@ -123,6 +161,20 @@ def run_pipeline(bom_path: str) -> dict:
                 top = subs[0]
                 roadmap = plan_qualification(mat, top["substitute_name"], cat)
                 qualification_roadmap.extend(roadmap)
+                # Attach roadmap to substitutions for composite scoring
+                for s in subs:
+                    s["_roadmap_cost"] = roadmap if s["ranked_position"] == 1 else None
+
+    # Composite score per substitution
+    scorer_weights = {
+        "w1": float(os.getenv("SCORE_W1", DEFAULT_W1)),
+        "w2": float(os.getenv("SCORE_W2", DEFAULT_W2)),
+        "w3": float(os.getenv("SCORE_W3", DEFAULT_W3)),
+        "w4": float(os.getenv("SCORE_W4", DEFAULT_W4)),
+    }
+    for s in substitutions:
+        s["composite_score"] = compute_composite_score(s, **scorer_weights)
+        s.pop("_roadmap_cost", None)  # clean up temp field
 
     elapsed = time.time() - t0
     report = RiskReport(

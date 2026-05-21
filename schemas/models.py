@@ -37,6 +37,7 @@ class SubstitutionCandidate(BaseModel):
     co2_delta_pct: float
     ranked_position: Literal[1, 2, 3]
     source: str
+    composite_score: Optional[float] = Field(default=None, ge=0.0, le=100.0)
 
 
 class QualificationStep(BaseModel):
