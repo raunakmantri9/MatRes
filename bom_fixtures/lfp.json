@@ -1,0 +1,47 @@
+{
+  "bom_name": "LFP — 75 kWh EV Battery Pack",
+  "components": [
+    {
+      "component_name": "Iron phosphate (cathode active material)",
+      "material_name": "iron phosphate",
+      "quantity_kg": 52.0,
+      "supplier_country": "China",
+      "notes": "LiFePO4 cathode. Iron is abundant globally (HHI ~200). No FEOC risk on iron itself."
+    },
+    {
+      "component_name": "Lithium carbonate (cathode + electrolyte)",
+      "material_name": "lithium",
+      "quantity_kg": 6.4,
+      "supplier_country": "Chile",
+      "notes": "Lower lithium content than NMC 811 per kWh due to lower energy density."
+    },
+    {
+      "component_name": "Natural graphite anode",
+      "material_name": "graphite",
+      "quantity_kg": 42.0,
+      "supplier_country": "China",
+      "notes": "LFP requires slightly more anode mass per kWh vs NMC. China >65% world graphite production."
+    },
+    {
+      "component_name": "LiPF6 electrolyte salt",
+      "material_name": "lithium hexafluorophosphate",
+      "quantity_kg": 4.5,
+      "supplier_country": "China",
+      "notes": "Same electrolyte system as NMC variants."
+    },
+    {
+      "component_name": "Copper current collector (anode)",
+      "material_name": "copper",
+      "quantity_kg": 19.8,
+      "supplier_country": "Chile",
+      "notes": "LFP packs tend to have more cells, slightly more copper foil."
+    },
+    {
+      "component_name": "Aluminum current collector (cathode)",
+      "material_name": "aluminum",
+      "quantity_kg": 13.1,
+      "supplier_country": "Australia",
+      "notes": "Low supply risk."
+    }
+  ]
+}

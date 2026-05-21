@@ -1,0 +1,75 @@
+{
+  "bom_name": "NCM 622 + NdFeB Motor — EV Drivetrain",
+  "components": [
+    {
+      "component_name": "Cobalt sulfate (cathode active material)",
+      "material_name": "cobalt",
+      "quantity_kg": 9.8,
+      "supplier_country": "DRC",
+      "notes": "NCM 622: Ni0.6Co0.2Mn0.2O2. Higher cobalt than NMC 811."
+    },
+    {
+      "component_name": "Nickel sulfate (cathode active material)",
+      "material_name": "nickel",
+      "quantity_kg": 22.1,
+      "supplier_country": "Indonesia",
+      "notes": "NCM 622 lower nickel fraction vs NMC 811."
+    },
+    {
+      "component_name": "Manganese sulfate (cathode active material)",
+      "material_name": "manganese",
+      "quantity_kg": 7.8,
+      "supplier_country": "South Africa",
+      "notes": "Higher manganese fraction in NCM 622."
+    },
+    {
+      "component_name": "Lithium carbonate (cathode + electrolyte)",
+      "material_name": "lithium",
+      "quantity_kg": 6.9,
+      "supplier_country": "Chile",
+      "notes": "Chile SQM primary supplier."
+    },
+    {
+      "component_name": "Natural graphite anode",
+      "material_name": "graphite",
+      "quantity_kg": 39.2,
+      "supplier_country": "China",
+      "notes": "China Dec 2023 export controls on graphite products directly affect this component."
+    },
+    {
+      "component_name": "Neodymium oxide (NdFeB motor magnet)",
+      "material_name": "neodymium",
+      "quantity_kg": 2.8,
+      "supplier_country": "China",
+      "notes": "China >85% world REE mining, >90% world REE refining. FEOC flag applies."
+    },
+    {
+      "component_name": "Dysprosium oxide (NdFeB motor magnet — heavy REE)",
+      "material_name": "dysprosium",
+      "quantity_kg": 0.4,
+      "supplier_country": "China",
+      "notes": "Heavy REE. China near-monopoly on refined dysprosium (>95%). Critical for high-temp magnet performance."
+    },
+    {
+      "component_name": "Iron (NdFeB motor magnet base)",
+      "material_name": "iron",
+      "quantity_kg": 9.1,
+      "supplier_country": "Australia",
+      "notes": "Iron abundant globally. No supply risk."
+    },
+    {
+      "component_name": "Boron (NdFeB motor magnet)",
+      "material_name": "boron",
+      "quantity_kg": 0.3,
+      "supplier_country": "Turkey",
+      "notes": "Turkey ~75% world boron production. Medium concentration risk."
+    },
+    {
+      "component_name": "Copper current collector (anode)",
+      "material_name": "copper",
+      "quantity_kg": 18.5,
+      "supplier_country": "Chile",
+      "notes": "Low supply risk."
+    }
+  ]
+}

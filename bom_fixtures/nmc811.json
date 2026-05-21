@@ -1,0 +1,61 @@
+{
+  "bom_name": "NMC 811 — 75 kWh EV Battery Pack",
+  "components": [
+    {
+      "component_name": "Cobalt sulfate (cathode active material)",
+      "material_name": "cobalt",
+      "quantity_kg": 6.2,
+      "supplier_country": "DRC",
+      "notes": "NMC 811 cathode: Ni0.8Co0.1Mn0.1O2. Cobalt ~10 wt% of cathode active mass. DRC = >70% world production."
+    },
+    {
+      "component_name": "Nickel sulfate (cathode active material)",
+      "material_name": "nickel",
+      "quantity_kg": 29.4,
+      "supplier_country": "Indonesia",
+      "notes": "Nickel ~80 wt% of NMC 811 cathode active mass. Indonesia dominant supplier since 2022."
+    },
+    {
+      "component_name": "Manganese sulfate (cathode active material)",
+      "material_name": "manganese",
+      "quantity_kg": 3.9,
+      "supplier_country": "South Africa",
+      "notes": "Manganese ~10 wt% of NMC 811 cathode active mass."
+    },
+    {
+      "component_name": "Lithium carbonate (cathode + electrolyte)",
+      "material_name": "lithium",
+      "quantity_kg": 7.1,
+      "supplier_country": "Chile",
+      "notes": "Lithium triangulo: Chile/Argentina/Bolivia ~60% world reserves. Chile SQM primary supplier."
+    },
+    {
+      "component_name": "Natural graphite anode",
+      "material_name": "graphite",
+      "quantity_kg": 38.5,
+      "supplier_country": "China",
+      "notes": "China >65% world graphite production. Dec 2023 export controls on graphite products."
+    },
+    {
+      "component_name": "LiPF6 electrolyte salt",
+      "material_name": "lithium hexafluorophosphate",
+      "quantity_kg": 4.8,
+      "supplier_country": "China",
+      "notes": "China dominates LiPF6 production. Solvents sourced globally."
+    },
+    {
+      "component_name": "Copper current collector (anode)",
+      "material_name": "copper",
+      "quantity_kg": 18.2,
+      "supplier_country": "Chile",
+      "notes": "Chile ~27% world copper mine production. Low concentration risk, HHI ~1000."
+    },
+    {
+      "component_name": "Aluminum current collector (cathode)",
+      "material_name": "aluminum",
+      "quantity_kg": 12.6,
+      "supplier_country": "Australia",
+      "notes": "Bauxite abundant globally. Low supply risk."
+    }
+  ]
+}
