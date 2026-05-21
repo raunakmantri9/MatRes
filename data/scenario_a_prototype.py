@@ -8,7 +8,8 @@ import json
 import pandas as pd
 from pathlib import Path
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 load_dotenv(Path(__file__).parent.parent / ".env")
 
@@ -18,8 +19,8 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     raise EnvironmentError("GEMINI_API_KEY not set in .env")
 
-genai.configure(api_key=GEMINI_API_KEY)
-MODEL = genai.GenerativeModel("gemini-2.5-pro-preview-05-06")
+CLIENT = genai.Client(api_key=GEMINI_API_KEY)
+MODEL = "gemini-2.5-pro"
 
 
 def load_cobalt_bom_entry() -> dict:
@@ -76,7 +77,7 @@ Analyze the supply risk for cobalt in this EV battery BOM. Return ONLY a JSON ob
 
 Every numeric value must be sourced from the data provided above. Do not invent numbers."""
 
-    resp = MODEL.generate_content(prompt)
+    resp = CLIENT.models.generate_content(model=MODEL, contents=prompt)
     text = resp.text.strip()
     if "```" in text:
         text = text.split("```json")[-1].split("```")[0].strip()
@@ -137,7 +138,7 @@ Generate exactly 3 ranked substitution candidates for cobalt/NMC 811. Return ONL
 
 Cite every numeric value. LFP should be ranked #1 given the supply risk profile."""
 
-    resp = MODEL.generate_content(prompt)
+    resp = CLIENT.models.generate_content(model=MODEL, contents=prompt)
     text = resp.text.strip()
     if "```" in text:
         text = text.split("```json")[-1].split("```")[0].strip()
@@ -170,7 +171,7 @@ Include at least 6 steps from cell-level through production ramp.
 Timeline should total 14-20 months.
 Cost bands should reflect realistic US/EU third-party testing facility rates."""
 
-    resp = MODEL.generate_content(prompt)
+    resp = CLIENT.models.generate_content(model=MODEL, contents=prompt)
     text = resp.text.strip()
     if "```" in text:
         text = text.split("```json")[-1].split("```")[0].strip()

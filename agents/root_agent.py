@@ -9,12 +9,12 @@ from dotenv import load_dotenv
 from google.adk.agents import Agent
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
-from google import genai as google_genai
+from google import genai
 
 load_dotenv(Path(__file__).parent.parent / ".env")
 
 APP_NAME = "matres"
-MODEL = "gemini-2.5-pro-preview-05-06"
+MODEL = "gemini-2.5-pro"
 
 
 def create_root_agent() -> Agent:
@@ -34,7 +34,7 @@ def create_root_agent() -> Agent:
 
 def hello_world_test():
     """Verify ADK connects to Gemini and responds."""
-    client = google_genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
     response = client.models.generate_content(
         model=MODEL,
         contents="Reply with exactly: MatRes ADK connection OK",
