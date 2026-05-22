@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="MatRes Architecture">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- User -->
+        <mxCell id="2" value="Engineer&#xa;(BOM JSON)" style="shape=mxgraph.general.person;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="340" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Streamlit UI -->
+        <mxCell id="3" value="Streamlit UI&#xa;(Cloud Run :8080)" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="200" y="350" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Root Orchestrator -->
+        <mxCell id="4" value="Root Orchestrator Agent&#xa;Google ADK + Gemini 2.5 Pro" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="340" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Gemini Summary -->
+        <mxCell id="5" value="Gemini 2.5 Pro&#xa;Executive Summary" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="440" y="200" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Sub-agents row -->
+        <mxCell id="6" value="SupplyRisk&#xa;Analyzer" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="500" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="FailureMode&#xa;Predictor" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="330" y="500" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Substitution&#xa;Generator" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="460" y="500" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="Qualification&#xa;Planner" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="590" y="500" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Data sources row -->
+        <mxCell id="10" value="MCP: USGS MCS 2025&#xa;HHI · FEOC · Export Controls" style="shape=cylinder3;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="160" y="640" width="150" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="MCP: OEC 2023&#xa;Trade flows" style="shape=cylinder3;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="640" width="130" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="NHTSA Recalls DB&#xa;EV battery recalls" style="shape=cylinder3;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="460" y="640" width="130" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="MCP: Materials Project&#xa;Properties · Substitutes" style="shape=cylinder3;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="640" width="150" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Hallucination Guard -->
+        <mxCell id="14" value="Hallucination Guard&#xa;(CitationError validator)" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="750" y="490" width="140" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- RiskReport output -->
+        <mxCell id="15" value="RiskReport JSON&#xa;+ Composite Score" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="760" y="340" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="20" edge="1" source="2" target="3" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="21" edge="1" source="3" target="4" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="22" edge="1" source="4" target="5" style="dashed=1;" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="23" edge="1" source="4" target="6" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="24" edge="1" source="4" target="7" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="25" edge="1" source="4" target="8" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="26" edge="1" source="4" target="9" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="27" edge="1" source="6" target="10" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="28" edge="1" source="6" target="11" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="29" edge="1" source="7" target="12" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="30" edge="1" source="8" target="13" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="31" edge="1" source="4" target="14" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="32" edge="1" source="4" target="15" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="33" edge="1" source="15" target="3" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
