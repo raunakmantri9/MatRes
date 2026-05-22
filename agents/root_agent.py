@@ -145,13 +145,23 @@ Risk analysis data:
 
 Executive summary (plain text, no bullet points, no headers):"""
 
+    gcp_project = os.getenv("GOOGLE_CLOUD_PROJECT")
+    gcp_region = os.getenv("GOOGLE_CLOUD_REGION", "us-central1")
+
+    # Prefer Vertex AI (bills to GCP credits); fall back to API key for local dev
+    if gcp_project:
+        try:
+            client = genai.Client(vertexai=True, project=gcp_project, location=gcp_region)
+            return client.models.generate_content(model=MODEL, contents=prompt).text.strip()
+        except Exception as e:
+            print(f"  WARNING: Gemini (vertexai) failed — falling back to API key: {e}")
+
     try:
         client = genai.Client(api_key=api_key)
-        response = client.models.generate_content(model=MODEL, contents=prompt)
-        return response.text.strip()
+        return client.models.generate_content(model=MODEL, contents=prompt).text.strip()
     except Exception as e:
-        print(f"  WARNING: Gemini summary failed: {e}")
-        return ""
+        print(f"  WARNING: Gemini (apikey) failed: {e}")
+    return ""
 
 
 def run_pipeline(bom_path: str) -> dict:
