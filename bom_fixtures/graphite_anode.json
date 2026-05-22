@@ -1,0 +1,50 @@
+{
+  "bom_name": "Graphite Anode Risk — 75 kWh EV Battery Pack",
+  "vehicle": "Generic BEV",
+  "pack_kwh": 75,
+  "notes": "Scenario C: focused on graphite anode supply risk and China export controls",
+  "components": [
+    {
+      "component_name": "Natural graphite anode",
+      "material_name": "graphite",
+      "quantity_kg": 38.5,
+      "supplier_country": "China",
+      "notes": "China Dec-2023 export controls apply; critical FEOC exposure"
+    },
+    {
+      "component_name": "Lithium carbonate (electrolyte salt base)",
+      "material_name": "lithium",
+      "quantity_kg": 7.1,
+      "supplier_country": "Chile",
+      "notes": "SQM / Albemarle supply"
+    },
+    {
+      "component_name": "NMC 811 cathode active material",
+      "material_name": "nickel",
+      "quantity_kg": 29.4,
+      "supplier_country": "Indonesia",
+      "notes": "High-nickel cathode; Indonesian supply"
+    },
+    {
+      "component_name": "Cobalt sulphate (cathode dopant)",
+      "material_name": "cobalt",
+      "quantity_kg": 6.2,
+      "supplier_country": "Democratic Republic of Congo",
+      "notes": "DRC artisanal mining; IRA FEOC non-compliant"
+    },
+    {
+      "component_name": "LiPF6 electrolyte salt",
+      "material_name": "lithium hexafluorophosphate",
+      "quantity_kg": 4.1,
+      "supplier_country": "China",
+      "notes": "Chinese chemical processing"
+    },
+    {
+      "component_name": "Copper current collector (anode)",
+      "material_name": "copper",
+      "quantity_kg": 12.3,
+      "supplier_country": "Chile",
+      "notes": "Standard commodity"
+    }
+  ]
+}

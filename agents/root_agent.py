@@ -106,6 +106,54 @@ def create_root_agent() -> Agent:
     )
 
 
+def generate_executive_summary(bom_name: str, supply_risks: list, substitutions: list, qualification_roadmap: list) -> str:
+    """
+    Call Gemini 2.5 Pro to synthesise a 3–4 sentence executive summary
+    grounded in the structured pipeline output. Returns plain text.
+    """
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        return ""
+
+    high_risk = [r for r in supply_risks if r.get("risk_level") == "HIGH"]
+    top_sub = substitutions[0] if substitutions else None
+    total_weeks = sum(s.get("duration_weeks", 0) for s in qualification_roadmap)
+
+    context = {
+        "bom_name": bom_name,
+        "high_risk_materials": [
+            {"material": r["material_name"], "top_country": r["top_country"],
+             "concentration_pct": r["top_country_pct"], "feoc": r["feoc_flag"]}
+            for r in high_risk
+        ],
+        "top_substitution": {
+            "name": top_sub["substitute_name"],
+            "composite_score": top_sub.get("composite_score", 0),
+            "energy_delta_pct": top_sub.get("property_delta", {}).get("energy_density_pct", 0),
+            "source": top_sub.get("source", ""),
+        } if top_sub else None,
+        "qualification_weeks": total_weeks,
+        "qualification_months": round(total_weeks / 4.3, 1),
+    }
+
+    prompt = f"""You are a materials supply-chain risk analyst. Given the structured risk analysis below,
+write a concise 3–4 sentence executive summary for an EV battery engineering team.
+Be specific: name materials, countries, percentages, and timelines. Do not add information not in the data.
+
+Risk analysis data:
+{json.dumps(context, indent=2)}
+
+Executive summary (plain text, no bullet points, no headers):"""
+
+    try:
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(model=MODEL, contents=prompt)
+        return response.text.strip()
+    except Exception as e:
+        print(f"  WARNING: Gemini summary failed: {e}")
+        return ""
+
+
 def run_pipeline(bom_path: str) -> dict:
     """
     Run the full MatRes pipeline on a BOM file.
@@ -176,6 +224,11 @@ def run_pipeline(bom_path: str) -> dict:
         s["composite_score"] = compute_composite_score(s, **scorer_weights)
         s.pop("_roadmap_cost", None)  # clean up temp field
 
+    # Gemini synthesis — executive summary grounded in pipeline output
+    executive_summary = generate_executive_summary(
+        bom_name, supply_risks, substitutions, qualification_roadmap
+    )
+
     elapsed = time.time() - t0
     report = RiskReport(
         bom_name=bom_name,
@@ -187,6 +240,7 @@ def run_pipeline(bom_path: str) -> dict:
     )
     result = report.model_dump()
     result["elapsed_seconds"] = round(elapsed, 1)
+    result["executive_summary"] = executive_summary
     return result
 
 

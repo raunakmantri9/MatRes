@@ -210,6 +210,10 @@ else:
         elapsed = report.get("elapsed_seconds", 0)
         st.success(f"Analysis complete in {elapsed}s — **{report['bom_name']}**")
 
+        summary = report.get("executive_summary", "")
+        if summary:
+            st.info(f"**Gemini 2.5 Pro Analysis**\n\n{summary}")
+
         tab1, tab2, tab3, tab4 = st.tabs([
             "🌍 Supply Risk",
             "⚠️ Failure Modes",
