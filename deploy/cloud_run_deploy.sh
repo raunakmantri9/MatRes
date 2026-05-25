@@ -8,15 +8,23 @@ REGION="us-central1"
 SERVICE="matres"
 IMAGE="gcr.io/${PROJECT_ID}/${SERVICE}"
 
-# Regenerate parquets so they're fresh in the image
-echo "==> Regenerating data parquets..."
-venv/bin/python data/ingest_usgs.py
-venv/bin/python data/ingest_materials_project.py
-venv/bin/python data/ingest_nhtsa.py
-venv/bin/python data/ingest_oec.py
+# Only regenerate parquets if missing — avoids overwriting good data on bad network
+PARQUETS=(data/usgs_mcs_2025.parquet data/materials_project_battery.parquet data/nhtsa_ev_recalls.parquet data/oec_flows.parquet)
+MISSING=0
+for f in "${PARQUETS[@]}"; do [[ ! -f "$f" ]] && MISSING=1 && break; done
+
+if [[ $MISSING -eq 1 ]]; then
+  echo "==> Regenerating missing data parquets..."
+  venv/bin/python data/ingest_usgs.py
+  venv/bin/python data/ingest_materials_project.py
+  venv/bin/python data/ingest_nhtsa.py
+  venv/bin/python data/ingest_oec.py
+else
+  echo "==> Data parquets already present — skipping ingest."
+fi
 
 echo "==> Building and pushing image..."
-gcloud builds submit --tag "${IMAGE}" --project "${PROJECT_ID}"
+gcloud builds submit --config cloudbuild.yaml --project "${PROJECT_ID}"
 
 echo "==> Deploying to Cloud Run..."
 gcloud run deploy "${SERVICE}" \
