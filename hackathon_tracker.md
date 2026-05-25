@@ -318,16 +318,14 @@ docker run -p 8080:8080 -e GEMINI_API_KEY=<key> matres
 # Verify at http://localhost:8080
 ```
 
-### Step 6.2 — Cloud Run deploy (60 min)
-`deploy/cloud_run_deploy.sh` created — run it after installing gcloud CLI:
-```bash
-# Install gcloud: https://cloud.google.com/sdk/docs/install
-gcloud auth login
-gcloud config set project materials-resilience-agent
-bash deploy/cloud_run_deploy.sh
-```
-Full script: regenerates parquets → builds image → pushes to gcr.io → deploys with env vars injected.
-Note the public URL. Test all 3 scenarios on the live URL.
+### Step 6.2 — Cloud Run deploy ✅ DONE (May 25)
+**Live URL: https://matres-705351137331.us-central1.run.app**
+- gcloud CLI already installed; ADC configured (`gcloud auth application-default login`)
+- `cloudbuild.yaml` added at project root (required for `--config` deploy pattern with Dockerfile in subdirectory)
+- Deploy script updated to skip parquet re-ingest if files already present
+- Image: `gcr.io/materials-resilience-agent/matres` (built in 2m41s via Cloud Build)
+- Service: `matres-00001-d4v`, us-central1, 2Gi memory, unauthenticated, 300s timeout
+- HTTP 200 smoke test passed
 
 ### Step 6.3 — Architecture diagram ✅ DONE (May 22)
 `docs/architecture.drawio` created — import at diagrams.net to view/edit and export PNG.
