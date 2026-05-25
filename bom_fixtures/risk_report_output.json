@@ -428,6 +428,6 @@
     }
   ],
   "composite_score": null,
-  "elapsed_seconds": 14.5,
-  "executive_summary": "Our analysis of the NMC 811 battery pack reveals significant supply-chain risk, with 73% of cobalt sourced from the Democratic Republic of Congo and 77% of graphite from China, both designated as FEOC-linked. Furthermore, nickel and lithium supplies are highly concentrated, with 55% from Indonesia and 47% from Australia, respectively. While LFP is the top alternative chemistry, it presents a 41.8% reduction in energy density and would require an 18.6-month qualification period to implement."
+  "elapsed_seconds": 16.1,
+  "executive_summary": "Our NMC 811 battery's supply chain is at high risk due to sourcing concentration in key materials, including graphite (77% from China) and cobalt (73% from the Democratic Republic of Congo). Both of these materials are sourced from Foreign Entities of Concern (FEOCs), with nickel also showing high concentration at 55% from Indonesia. While substituting with an LFP chemistry is the top mitigation option, engineers must account for a significant 41.8% reduction in energy density and an 80-week qualification timeline."
 }
