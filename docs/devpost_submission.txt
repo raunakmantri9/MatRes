@@ -1,0 +1,198 @@
+DEVPOST SUBMISSION — MatRes: Materials Resilience Agent
+=========================================================
+Fill each field below into the Devpost form exactly as written.
+=========================================================
+
+
+PROJECT NAME
+------------
+MatRes — Materials Resilience Agent
+
+
+ONE-LINE DESCRIPTION (shown in project gallery)
+------------------------------------------------
+AI agent that analyses EV battery supply risk, surfaces real recalls, and
+generates ranked substitution paths with qualification roadmaps — in 90 seconds.
+
+
+VIDEO LINK
+----------
+https://www.youtube.com/watch?v=lmEANPO7hf8
+
+
+PROTOTYPE / DEMO LINK
+---------------------
+https://matres-705351137331.us-central1.run.app
+
+
+CODE LINK
+---------
+https://github.com/raunakmantri9/MatRes
+
+
+PRESENTATION / DESIGN LINK
+--------------------------
+[Upload docs/MatRes_Pitch_Deck.pptx to Google Slides or SlideShare and paste URL here]
+
+
+INSPIRATION
+-----------
+EV battery engineers face a crisis that repeats every time there's a geopolitical
+shock. When China banned graphite exports in December 2023, it disrupted 77% of
+global supply overnight — with no advance warning. When GM's Bolt battery failed,
+the recall cost $1.9 billion. The problem is that analysing which materials in a
+battery pack are at risk, and what to do about it, takes 3–6 weeks of manual work
+across procurement, materials science, and legal teams — every single time.
+
+We built MatRes because no tool exists at the engineering-decision layer. Supply
+chain dashboards (Interos, Resilinc) operate at KPI level, too high for engineers.
+Raw data sources (USGS, Materials Project) are too low-level. MatRes sits between
+them — agentic, cited, and under 90 seconds.
+
+
+WHAT IT DOES
+------------
+MatRes is a supply-risk-aware BOM advisor for EV battery engineering teams. Users
+upload a Bill of Materials JSON file, and four AI sub-agents run in sequence:
+
+1. SupplyRiskAnalyzer — computes the HHI (Herfindahl-Hirschman Index) concentration
+   score, checks FEOC compliance under US IRA 2022, and surfaces active export
+   control events. Data source: USGS Mineral Commodity Summaries 2025 + OEC 2023.
+
+2. FailureModePredictor — queries a real NHTSA recall database and classifies each
+   recall by failure mode (thermal runaway, dendrite growth, BMS fault) and severity
+   (1–5). Data source: 8 EV recalls, 141,667+ vehicles affected, 2018–2026.
+
+3. SubstitutionGenerator — generates 3 ranked alternative materials with full
+   property deltas: energy density %, cycle life %, thermal stability, cost delta %,
+   CO₂ delta %. Data source: Materials Project API (Lawrence Berkeley National Lab).
+
+4. QualificationPlanner — builds the complete testing roadmap with applicable
+   standards (UN 38.3, IEC 62660-1/2, UL 2580, ISO 26262, ECE R100), timeline in
+   weeks, and cost band in USD.
+
+A hallucination guard middleware rejects any numeric output that lacks a source
+citation — CitationError is raised and the number never reaches the UI. A composite
+scorer (40% supply risk, 25% performance, 25% qualification cost, 10% CO₂) ranks
+substitutions 0–100 with tunable weights.
+
+
+HOW WE BUILT IT
+---------------
+Intelligence: Gemini 2.5 Pro via Vertex AI — generates the executive summary
+paragraph and provides reasoning over multi-source BOM data. All calls are
+IAM-controlled, routed through Vertex AI (not direct API key), and fully auditable.
+
+Orchestration: Google Agent Development Kit (ADK) — the root agent orchestrates
+the 4 sub-agents as FunctionTool objects. Using FunctionTool (deterministic data
+lookups) rather than LLM sub-agents keeps the data layer fast, cheap, and free of
+hallucination risk.
+
+Data protocol: Model Context Protocol (MCP) — USGS MCS 2025 and Materials Project
+data are wrapped as standalone MCP servers (mcp_servers/usgs_server.py and
+mcp_servers/materials_project_server.py), making them queryable via standard tool
+calls from the ADK agent.
+
+Schemas and validation: Pydantic v2 models for all 7 data types. Citation guard
+middleware (schemas/validator.py) runs post-output on every sub-agent.
+
+UI: Streamlit — 4 tabs (Supply Risk, Failure Modes, Substitutions, Qualification
+Roadmap), sidebar weight sliders for the composite scorer, and a JSON report
+download button.
+
+Infrastructure: Cloud Run (GCP us-central1, 2Gi memory, 300s timeout). API keys
+stored in Secret Manager — zero hardcoded credentials in the container image or
+git history. Cloud Build for CI/CD via cloudbuild.yaml.
+
+
+CHALLENGES WE RAN INTO
+-----------------------
+1. Hallucination at the data layer — early versions of the pipeline returned plausible
+   but uncited numbers. Solved by building the CitationError middleware that enforces
+   source fields on every numeric value as a hard constraint, not a guideline.
+
+2. Cloud Build ignoring parquet files — gcloud builds submit falls back to .gitignore
+   when no .gcloudignore exists. Our .gitignore excluded *.parquet files (correct for
+   git), which meant the data files were stripped from the Docker image, causing
+   FileNotFoundError at runtime. Fixed with a .gcloudignore that keeps parquets.
+
+3. Vertex AI vs direct API key routing — early builds accidentally fell back to the
+   direct Gemini API key when Vertex AI config was malformed, creating partial billing
+   outside the promotional credit scope. Fixed by removing the API key from the Cloud
+   Run environment entirely so only Vertex AI ADC is available.
+
+
+ACCOMPLISHMENTS WE ARE PROUD OF
+--------------------------------
+- The hallucination guard: every number in the UI traces back to a real data source.
+  This is what makes the output trustworthy for engineering decisions, not just demos.
+
+- Full pipeline in under 90 seconds: 8 components analysed, 15 failure modes
+  identified, 3 substitutions ranked, 7-step qualification roadmap generated.
+
+- Built entirely on Google's AI stack: Gemini 2.5 Pro + ADK + MCP + Cloud Run +
+  Secret Manager + Vertex AI — every component is a Google service.
+
+- The composite scorer with tunable weights: engineers at different companies have
+  different priorities (cost vs. performance vs. CO₂ vs. supply risk). The weights
+  make the tool adaptable without changing code.
+
+
+WHAT WE LEARNED
+---------------
+- Google ADK's FunctionTool pattern is the right abstraction for deterministic data
+  lookups — faster, cheaper, and more reliable than using LLM sub-agents for
+  structured data retrieval.
+
+- MCP is a genuinely useful protocol for separating data access from agent logic.
+  Wrapping USGS and Materials Project as MCP servers made the architecture cleaner
+  and the data layer independently testable.
+
+- Citation discipline needs to be enforced at the infrastructure level, not left to
+  prompt engineering. A middleware guard that raises errors is more robust than
+  instructions to "always cite sources."
+
+
+WHAT'S NEXT
+-----------
+- Expand to semiconductor BOMs (gallium, germanium, silicon carbide) and
+  pharmaceutical supply chains
+- Real-time export control monitoring via OEC and government trade APIs
+- Integration with ERP/PLM systems (SAP, Siemens Teamcenter) via API
+- Supplier diversification map — visual showing alternative supplier geographies
+- Enterprise SaaS with team collaboration and report versioning
+
+
+TECHNOLOGIES USED (select these tags on Devpost)
+-------------------------------------------------
+- Gemini 2.5 Pro
+- Google Agent Development Kit (ADK)
+- Model Context Protocol (MCP)
+- Google Cloud Run
+- Vertex AI
+- Google Cloud Build
+- Google Secret Manager
+- Python
+- Streamlit
+- Pydantic
+
+
+DATA SOURCES
+------------
+- USGS Mineral Commodity Summaries 2025 (public domain, usgs.gov)
+- Materials Project API — Lawrence Berkeley National Lab (free research license)
+- NHTSA EV Recalls 2018–2026 (public domain, nhtsa.dot.gov)
+- OEC World Trade Data 2023 (open data, oec.world)
+
+
+THIRD-PARTY INTEGRATIONS
+-------------------------
+- Materials Project API (LBNL) — free research license, no commercial restrictions
+- USGS MCS 2025 — US government public domain data
+- NHTSA Recalls — US government public domain data
+- OEC 2023 — open data license
+
+
+TEAM MEMBERS
+------------
+Raunak Mantri
