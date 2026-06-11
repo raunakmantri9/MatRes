@@ -1,0 +1,124 @@
+ADOBE EXPRESS — PRESENTATION CREATION PROMPT
+=============================================
+Copy and paste this into Adobe Express AI or share with a designer.
+=============================================
+
+Create a 10-slide professional pitch deck presentation with the following parameters:
+
+AUDIENCE: Hackathon judges from Google (technical, time-pressed, evaluating AI agent projects)
+TONE: Confident, modern, technical but accessible
+STYLE: Dark background (navy or charcoal), clean sans-serif font, minimal text per slide
+BRAND COLORS: Use Google-adjacent palette — blue (#4285F4), green (#34A853), yellow (#FBBC04), red (#EA4335) as accent colors on dark background
+LOGO/TITLE: "MatRes" in bold white, subtitle in light grey
+
+SLIDE-BY-SLIDE CONTENT:
+
+---
+SLIDE 1 (Title)
+Title: MatRes — Materials Resilience Agent
+Subtitle: Supply risk analysis for EV battery engineering teams
+Body: From BOM upload to risk report in under 90 seconds
+URL (prominent): https://matres-705351137331.us-central1.run.app
+Footer: Google for Startups AI Agents Challenge · Track 1: Build · 2026
+Visual idea: Abstract circuit board or battery cell graphic, dark background
+
+---
+SLIDE 2 (Problem)
+Headline: One material disruption can cost $1.9 billion
+3 bullet points:
+• GM Bolt recall 2021 — 141,667 vehicles, $1.9B cost — thermal runaway
+• China's Dec 2023 graphite export ban — 77% of global supply disrupted overnight
+• DRC cobalt — 73% concentration, FEOC non-compliant under US IRA 2022
+Bottom callout box: "Engineers spend 3–6 weeks doing this analysis manually. Every time."
+Visual idea: Red warning icons next to each bullet, world map background faded
+
+---
+SLIDE 3 (Solution)
+Headline: Upload a BOM. Get a risk report in 90 seconds.
+4 numbered points:
+1. Which materials are geopolitically concentrated (HHI score + FEOC flag)
+2. What failures those materials caused in real vehicles (NHTSA recalls)
+3. What you can substitute and how properties compare
+4. How long and how expensive the qualification process will be
+Bottom: "Every number has a source citation. No uncited claims reach the UI."
+Visual idea: Simple flow diagram — BOM file → agent → 4 output cards
+
+---
+SLIDE 4 (Google Tech Stack)
+Headline: Built entirely on Google's AI stack
+4 rows, each with icon + label + one-line description:
+• Gemini 2.5 Pro (Vertex AI) — Executive summary + reasoning over BOM data
+• Google ADK — Orchestrates 4 sub-agents with typed tool calls
+• Model Context Protocol (MCP) — USGS + Materials Project as MCP servers
+• Cloud Run + Secret Manager — Serverless, zero hardcoded credentials
+Note at bottom: "All Gemini calls route through Vertex AI — auditable, IAM-controlled"
+Visual idea: Google Cloud logo, clean icon row layout
+
+---
+SLIDE 5 (Architecture)
+Headline: Built on Google ADK + Gemini 2.5 Pro
+[PLACEHOLDER: Insert architecture.png diagram here]
+Caption: 4 ADK sub-agents · MCP servers for external data · Hallucination guard · Cloud Run
+
+---
+SLIDE 6 (Demo Result)
+Headline: NMC 811 Battery Pack — what MatRes finds
+Two columns:
+LEFT — RISK FOUND:
+• Cobalt: HIGH · HHI 5,535 · DRC 73% · FEOC non-compliant
+• Graphite: HIGH · HHI 6,058 · China 77% · export ban active
+RIGHT — TOP SUBSTITUTION:
+• #1 LFP (LiFePO4) · Score 67/100
+• Supply risk: 10/100 (vs 70+ for cobalt)
+• Energy trade-off: −42%
+• Qualification: 80 weeks · $925k–$1.85M
+Visual idea: Split card layout, red/amber on left, green on right
+
+---
+SLIDE 7 (Hallucination Guard)
+Headline: Every number is cited. By design.
+Comparison table (3 rows):
+WITHOUT MATRES | WITH MATRES
+"Cobalt is risky" | "HHI: 5,535 · Source: USGS MCS 2025"
+"LFP is safer" | "Supply risk: 10/100 · Source: NREL 2023"
+"Qualification takes months" | "80 weeks · $925k–$1.85M · Source: UN 38.3"
+Bottom: "CitationError middleware rejects any number without a source field"
+Visual idea: Red X on left column, green checkmark on right column
+
+---
+SLIDE 8 (Why Net-New)
+Headline: A genuinely new agent — not a wrapper
+Two columns:
+LEFT — What it is NOT:
+• Not a supply chain dashboard
+• Not a data lookup tool
+• Not a general LLM query
+RIGHT — What makes it novel:
+• Connects geopolitical risk → failure data → substitution → qualification
+• Hallucination guard for regulatory-grade output
+• Deterministic sub-agents — fast, auditable, no hallucination risk on data
+Visual idea: Checkmark/X icon list, clean two-column layout
+
+---
+SLIDE 9 (Business Case)
+Headline: Replacing 3 weeks of manual work with 90 seconds
+3 sections:
+WHO: Tier-1 EV battery suppliers and OEM procurement teams (Panasonic, LG Energy, CATL)
+WHY NOW: IRA 2022 FEOC compliance deadlines forcing BOM reviews across the industry
+MARKET: $4B supply chain risk software market · No agentic competitor at engineering layer
+Visual idea: Simple bar/stat callouts, clean minimal layout
+
+---
+SLIDE 10 (Call to Action)
+Headline: Try it now
+Large text: https://matres-705351137331.us-central1.run.app
+3 steps numbered:
+1. Download bom_fixtures/nmc811.json from GitHub
+2. Upload it at the demo URL
+3. See cobalt flagged HIGH, LFP ranked #1, 19-month roadmap generated
+GitHub: github.com/raunakmantri9/MatRes
+Footer: Raunak Mantri · Google for Startups AI Agents Challenge 2026 · Gemini 2.5 Pro · Google ADK · Cloud Run
+
+===
+END OF PROMPT
+===
