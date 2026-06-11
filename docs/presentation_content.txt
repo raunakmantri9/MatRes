@@ -1,147 +1,178 @@
 MATRES — MATERIALS RESILIENCE AGENT
-Presentation Slides — Google for Startups AI Agents Challenge 2026
+====================================================================
+AUDIENCE:       Hackathon judges (Google for Startups AI Agents Challenge)
+DETAIL LEVEL:   Medium — one clear point per slide, facts over depth
+TONE:           Confident, technical but accessible, demo-driven
+SLIDE COUNT:    10
 ====================================================================
 
 
 SLIDE 1 — TITLE
 ---------------
-Title:    MatRes — Materials Resilience Agent
-Subtitle: AI-powered supply risk analysis for EV battery engineering teams
-Footer:   Google for Startups AI Agents Challenge · Track 1: Build · 2026
-Visual:   Dark background, battery/circuit motif
+MatRes — Materials Resilience Agent
+
+Supply risk analysis for EV battery engineering teams
+From BOM upload to risk report in under 90 seconds
+
+[Demo URL visible on title slide]
+https://matres-705351137331.us-central1.run.app
+
+Google for Startups AI Agents Challenge · Track 1: Build · 2026
 
 
 SLIDE 2 — THE PROBLEM
 ----------------------
-Headline: One material disruption can cost $1.9 billion
+The problem engineers face today:
 
-- GM Bolt recall 2021: 141,667 vehicles, $1.9B cost — lithium battery thermal runaway
-- China's Dec 2023 graphite export ban: 77% of global supply disrupted overnight
-- DRC cobalt: 73% concentration, FEOC non-compliant under US IRA 2022
+- GM Bolt recall 2021 — 141,667 vehicles, $1.9B cost — thermal runaway
+- China's Dec 2023 graphite export ban — 77% of global supply, no warning
+- DRC cobalt — 73% concentration, FEOC non-compliant under US IRA 2022
 
-Bottom stat: Engineers spend 3–6 weeks doing this analysis manually. Every time.
-
-
-SLIDE 3 — THE GAP
------------------
-Headline: No tool sits at the engineering-decision layer
-
-Supply chain dashboards     |     Raw data sources
-(Interos, Resilinc)         |     (USGS, Materials Project)
-      Too high level        |           Too low level
-                            |
-              ← MatRes fills this gap →
-         Agentic. Cited. Under 90 seconds.
+Manual analysis of these risks takes 3–6 weeks per BOM revision.
+There is no agentic tool at the engineering-decision layer.
 
 
-SLIDE 4 — HOW IT WORKS
+SLIDE 3 — THE SOLUTION
 -----------------------
-Headline: Upload a BOM. Get a risk report in 90 seconds.
+Upload a Bill of Materials JSON → get a full risk report in 90 seconds
 
-[Box 1] SUPPLY RISK
-Computes HHI concentration score and FEOC compliance flag per material
-Source: USGS Mineral Commodity Summaries 2025 + OEC Trade Data 2023
+Four things MatRes tells you:
+1. Which materials are geopolitically concentrated (HHI score + FEOC flag)
+2. What failures those materials have caused in real vehicles (NHTSA recalls)
+3. What you can substitute them with and how the properties compare
+4. How long and how expensive the qualification process will be
 
-[Box 2] FAILURE MODES
-Surfaces real NHTSA vehicle recalls classified by failure mode and severity
-Source: 8 EV recalls, 141,667+ vehicles affected, 2018–2026
+Every number has a source citation. No uncited claims reach the UI.
 
-[Box 3] SUBSTITUTIONS
-3 ranked alternative materials with full property delta comparison
-Source: Materials Project API (Lawrence Berkeley National Lab)
 
-[Box 4] QUALIFICATION ROADMAP
-Testing standards, timeline in weeks, and cost band in USD
-Standards: UN 38.3 · IEC 62660-1/2 · UL 2580 · ISO 26262 · ECE R100
+SLIDE 4 — GOOGLE TECH STACK
+-----------------------------
+Built entirely on Google's AI stack — as intended for Track 1
+
+Gemini 2.5 Pro (Vertex AI)
+→ Executive summary generation, reasoning over multi-source BOM data
+
+Google Agent Development Kit (ADK)
+→ Orchestrates 4 sub-agents with typed inputs, outputs, and tool calls
+
+Model Context Protocol (MCP)
+→ USGS and Materials Project data wrapped as MCP servers for the agent
+
+Cloud Run + Secret Manager + Cloud Build
+→ Fully serverless deployment, zero hardcoded credentials, CI/CD via gcloud
+
+Note for judges: All Gemini calls route through Vertex AI (not direct API key)
+so every call is auditable, IAM-controlled, and billed to the GCP project.
 
 
 SLIDE 5 — ARCHITECTURE
 -----------------------
-Headline: Built on Google ADK + Gemini 2.5 Pro
-
 [INSERT architecture.png HERE]
 
-Caption:
-4 ADK sub-agents · MCP servers for USGS and Materials Project data
-Hallucination guard on every numeric output · Deployed on Cloud Run (GCP us-central1)
+User uploads BOM JSON
+         ↓
+Root Orchestrator — Google ADK + Gemini 2.5 Pro
+    ↓           ↓           ↓            ↓
+Supply Risk  Failure    Substitution  Qualification
+Analyzer     Mode        Generator    Planner
+    ↓         Predictor      ↓            ↓
+USGS MCS    NHTSA        Materials    Standards
+2025 +      Recalls      Project API  Templates
+OEC 2023
+         ↓
+Hallucination Guard (CitationError if unsourced number)
+         ↓
+RiskReport + Composite Score (0–100)
+         ↓
+Cloud Run · GCP us-central1
 
 
-SLIDE 6 — DEMO: SCENARIO A
+SLIDE 6 — LIVE DEMO RESULT
 ---------------------------
-Headline: NMC 811 Battery Pack — Cobalt Risk (Live Demo)
+NMC 811 Battery Pack — what MatRes finds in 14 seconds
 
-RISK IDENTIFIED:
-- Cobalt:   HIGH risk · HHI 5,535 · DRC 73% · FEOC non-compliant
-- Graphite: HIGH risk · HHI 6,058 · China 77% · Dec 2023 export ban active
-- Nickel:   HIGH risk · HHI 3,576 · Indonesia 55%
-- Lithium:  HIGH risk · HHI 3,142 · Australia 47%
+SUPPLY RISK (Tab 1):
+- Cobalt:   HIGH · HHI 5,535 · DRC 73% · FEOC non-compliant
+- Graphite: HIGH · HHI 6,058 · China 77% · export ban active Dec 2023
 
-TOP SUBSTITUTION RECOMMENDED:
-- #1 LFP (LiFePO4) — Composite score 67/100
+TOP SUBSTITUTION (Tab 3):
+- #1 LFP (LiFePO4) · Composite score 67/100
+- Supply risk drops from 70+ → 10 out of 100
 - Energy density trade-off: −42%
-- Supply risk score: 10/100 (vs 70+ for cobalt-based chemistry)
-- Qualification path: 80 weeks (~19 months) · $925,000–$1,850,000
-- Every number cited to USGS / NREL Battery Report 2023 / IEC standards
+- Source: NREL Battery Performance Report 2023
+
+QUALIFICATION ROADMAP (Tab 4):
+- 7 steps · 80 weeks · $925k–$1.85M
+- Standards: IEC 62660-1 → UN 38.3 → UL 2580 → ISO 26262 → ECE R100
 
 
-SLIDE 7 — HALLUCINATION GUARD
-------------------------------
-Headline: Every number is cited. By design.
+SLIDE 7 — THE HALLUCINATION GUARD
+-----------------------------------
+Why this matters for engineering decisions:
 
-WITHOUT MATRES              |  WITH MATRES
-"Cobalt is risky"           |  "Cobalt HHI: 5,535 · Source: USGS MCS 2025"
-"LFP is safer"              |  "LFP supply risk: 10/100 · Source: NREL 2023"
-"Qualification takes months"|  "80 weeks · $925k–$1.85M · Source: UN 38.3, IEC 62660"
-"China dominates graphite"  |  "China: 77% share · HHI 6,058 · Source: USGS MCS 2025"
+Engineers cannot act on uncited AI output — legal and regulatory exposure.
 
-A CitationError middleware rejects any numeric output that lacks a source field
-before it reaches the UI. No uncited numbers can appear in the report.
+MatRes enforces a citation rule at the middleware layer:
+Every numeric value must carry a source field before reaching the UI.
+If a sub-agent returns a number without a citation → CitationError is raised.
+
+Example:
+  "Cobalt HHI: 5,535"  ✓  source: USGS MCS 2025
+  "LFP cycle life: +200%"  ✓  source: NREL Battery Performance Report 2023
+  "Qualification: 80 weeks"  ✓  source: IEC 62660-1, UN 38.3, UL 2580
+
+This is what makes the output trustworthy enough to take to procurement.
 
 
-SLIDE 8 — TECH STACK
----------------------
-Headline: Built entirely on Google's AI stack
+SLIDE 8 — WHY THIS IS A NET-NEW AGENT
+---------------------------------------
+Track 1 requires a genuinely new agent — not a wrapper.
 
-Gemini 2.5 Pro      — Executive summary generation + reasoning over BOM data
-Google ADK          — Orchestrates 4 sub-agents with typed inputs and outputs
-MCP Protocol        — USGS and Materials Project wrapped as MCP servers
-Cloud Run           — Serverless deployment, GCP us-central1, 2Gi memory
-Secret Manager      — Zero hardcoded credentials in codebase or container
-Vertex AI           — Secure API access, all usage billed to GCP credits
+What MatRes is NOT:
+- Not a supply chain dashboard (Interos, Resilinc operate at dashboard level)
+- Not a data lookup tool (USGS, Materials Project have no agent layer)
+- Not a general-purpose LLM query
 
-Data sources: USGS MCS 2025 · Materials Project (LBNL) · NHTSA Recalls · OEC 2023
+What makes it novel:
+- First agent that connects geopolitical risk → material failure data → substitution → qualification in one pipeline
+- Hallucination guard enforces citation discipline — purpose-built for regulatory-grade output
+- Composite scorer with tunable weights — engineers adjust priorities (cost vs. performance vs. CO₂)
+- Sub-agents are deterministic data tools (FunctionTool, not LLM calls) — fast, auditable, cheap
 
 
 SLIDE 9 — BUSINESS CASE
 ------------------------
-Headline: Replacing 3 weeks of manual work with 90 seconds
+Who buys this and why:
 
-TARGET CUSTOMERS:
-- EV battery engineers at Tier-1 suppliers (Panasonic, LG Energy, Samsung SDI, CATL)
-- Procurement teams evaluating BOM changes for US IRA 2022 FEOC compliance
-- OEM supplier risk and resilience teams (GM, Ford, Tata, Ola Electric)
+TARGET:
+Tier-1 EV battery suppliers and OEM procurement teams
+(Panasonic, LG Energy, Samsung SDI, CATL, Tata, Ola Electric)
 
-MARKET OPPORTUNITY:
-- TAM: $4B supply chain risk software market
-- No agentic competitor at the engineering-decision layer today
-- Existing tools (Interos, Resilinc) operate at dashboard level — not material-specific
+USE CASE:
+BOM review triggered by geopolitical event, regulatory change, or recall risk
+Replaces 3–6 weeks of manual cross-functional analysis
 
-MOAT:
-- Citation-enforced outputs are trustworthy enough to present to regulators
-- Agent learns the qualification standards — not just the data
+MARKET:
+$4B supply chain risk software market
+No agentic competitor at the engineering-decision layer today
+
+POST-HACKATHON:
+Extend to semiconductor BOMs, pharmaceutical supply chains, aerospace materials
 
 
-SLIDE 10 — TRY IT NOW
-----------------------
-Headline: Live now. Try it yourself.
+SLIDE 10 — TRY IT
+------------------
+Live now — test it in 2 minutes
 
-Demo URL:  https://matres-705351137331.us-central1.run.app
-GitHub:    https://github.com/raunakmantri9/MatRes
+Demo:    https://matres-705351137331.us-central1.run.app
+GitHub:  https://github.com/raunakmantri9/MatRes
 
-How to test in 3 steps:
-1. Go to the demo URL above
-2. Download bom_fixtures/nmc811.json from the GitHub repo
-3. Upload it — see cobalt flagged HIGH, LFP ranked #1, full 19-month roadmap
+To run Scenario A:
+1. Open the demo URL
+2. Download bom_fixtures/nmc811.json from GitHub
+3. Upload it in the sidebar
+4. Watch cobalt flagged HIGH, LFP ranked #1, full roadmap generated
 
-Built by Raunak Mantri · Google for Startups AI Agents Challenge 2026
-Powered by Gemini 2.5 Pro · Google ADK · Cloud Run
+Built by Raunak Mantri
+Google for Startups AI Agents Challenge 2026
+Gemini 2.5 Pro · Google ADK · MCP · Cloud Run
